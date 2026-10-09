@@ -587,7 +587,7 @@ body{
     <p class="surprise-title">eh, satu lagi.</p>
     <p class="surprise-sub">ini yang tadi aku bilang. klik ya.</p>
     <a class="surprise-link"
-       href="https://interactivewish.com/?id=l2d-id-UFTsJfjXddmfrdoe3TE2&ref=share"
+       href="https://gifft.me/id/o/l/y3cxm19ry10yd8fkx0mxiuzn"
        target="_blank" rel="noopener noreferrer">
       buka kejutan di sini
     </a>
