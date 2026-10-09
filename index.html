@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>untuk kamu, yang namanya selalu terngiang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:      #f6f1e3;
+  --paper-edge: #e9e2ce;
+  --rule:       rgba(120,140,170,0.28);
+  --margin:     rgba(190,90,90,0.35);
+  --ink:        #2a2723;
+  --ink-soft:   #6a6358;
+  --pen:        #3d5a99;
+  --pen-soft:   #6b7fa8;
+  --red-pen:    #b04545;
+  --tape:       rgba(243,223,150,0.72);
+  --tape-blue:  rgba(180,205,225,0.62);
+  --tape-pink:  rgba(240,190,200,0.6);
+  --highlight:  rgba(246,226,140,0.85);
+}
+*{ margin:0; padding:0; box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  background:#d9d3c5;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color:var(--ink);
+  overflow-x:hidden;
+}
+.page{
+  position:relative;
+  min-height:100dvh;
+  max-width:760px;
+  margin:0 auto;
+  padding:52px 34px 140px 76px;
+  background:var(--paper);
+  box-shadow:0 0 0 1px rgba(0,0,0,.04), 0 8px 40px -10px rgba(0,0,0,.2);
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0, transparent 31px,
+      var(--rule) 31px, var(--rule) 32px
+    );
+  background-size:100% 32px;
+  background-position:0 52px;
+  overflow-x:hidden;
+}
+.page::before{
+  content:"";
+  position:absolute; top:0; bottom:0; left:54px; width:1.5px;
+  background:var(--margin);
+  pointer-events:none;
+}
+.page::after{
+  content:"";
+  position:absolute; top:34px; bottom:34px; left:14px; width:14px;
+  background:
+    radial-gradient(circle at 7px 30px, rgba(0,0,0,.08) 0 4px, transparent 5px),
+    radial-gradient(circle at 7px calc(50% - 20px), rgba(0,0,0,.08) 0 4px, transparent 5px),
+    radial-gradient(circle at 7px calc(100% - 30px), rgba(0,0,0,.08) 0 4px, transparent 5px);
+  background-repeat:no-repeat; background-size:100% 100%;
+  pointer-events:none;
+}
+.page-header{
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-family:'Kalam', cursive; font-size:18px;
+  color:var(--ink-soft); margin-bottom:26px; padding-bottom:6px;
+}
+.page-date{ color:var(--pen); }
+.page-date s{ color:var(--red-pen); opacity:.75; text-decoration-thickness:1.5px; margin-right:2px; }
+.title-wrap{ position:relative; margin-bottom:8px; line-height:1.35; }
+.title{
+  position:relative;
+  font-family:'Kalam', cursive; font-weight:700;
+  font-size:clamp(26px, 6.5vw, 40px);
+  color:var(--ink); letter-spacing:-.005em;
+  display:inline; z-index:2;
+}
+.highlight{
+  position:absolute; left:-4px; top:14%; height:72%; width:0;
+  background:var(--highlight);
+  transform:rotate(-.6deg); transform-origin:left center;
+  z-index:1; border-radius:3px;
+  mix-blend-mode:multiply; pointer-events:none;
+}
+.highlight.on{ animation: swipe .9s cubic-bezier(.5,.05,.4,1) forwards; }
+@keyframes swipe{ from{ width:0; } to{ width:calc(100% + 8px); } }
+.subtitle{
+  font-family:'Kalam', cursive;
+  font-size:clamp(15px, 3.6vw, 18px);
+  color:var(--ink-soft); margin:12px 0 34px; padding-left:2px;
+  opacity:0; transform:translateY(6px);
+  transition:opacity .6s ease .1s, transform .6s ease .1s;
+}
+.subtitle.on{ opacity:1; transform:none; }
+.scrapbook-intro{
+  margin:10px 0 4px;
+  padding-bottom:6px;
+  opacity:0; transform:translateY(8px);
+  transition:opacity .7s ease, transform .7s ease;
+  max-width:560px;
+}
+.scrapbook-intro.on{ opacity:1; transform:none; }
+.scrapbook-text{
+  font-family:'Kalam', cursive;
+  font-size:clamp(16px, 4vw, 18.5px);
+  line-height:1.85;
+  color:var(--ink);
+  transform:rotate(-.35deg);
+  letter-spacing:.005em;
+}
+.scrapbook-text .mark{
+  position:relative; display:inline; padding:0 2px; z-index:1;
+}
+.scrapbook-text .mark::before{
+  content:"";
+  position:absolute; left:-1px; right:-1px; bottom:3px;
+  height:9px; background:var(--highlight);
+  z-index:-1; border-radius:3px;
+  transform:rotate(-.5deg);
+  mix-blend-mode:multiply;
+}
+.scrapbook-text .arrow{
+  display:inline-block; color:var(--red-pen); font-weight:700;
+  transform:rotate(-4deg); margin-left:2px;
+}
+.photo-section{
+  position:relative;
+  margin:32px 0 0;
+  padding:4px 0 8px;
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.photo-section.on{ opacity:1; transform:none; }
+.photo-grid{
+  display:flex; flex-wrap:wrap; gap:24px 18px;
+  align-items:flex-start;
+  padding:4px 2px 10px;
+  position:relative;
+}
+.polaroid{
+  position:relative; background:#fdfaf0; padding:6px;
+  box-shadow:0 1px 2px rgba(0,0,0,.08), 0 6px 18px -8px rgba(0,0,0,.28);
+  transition:transform .35s cubic-bezier(.3,.8,.4,1), box-shadow .35s;
+  flex:0 0 auto;
+}
+.polaroid:hover{
+  transform:scale(1.04) rotate(0deg) !important;
+  box-shadow:0 3px 6px rgba(0,0,0,.1), 0 16px 34px -10px rgba(0,0,0,.35);
+  z-index:10;
+}
+.polaroid .photo-frame{ position:relative; overflow:hidden; background:#e8e0cc; }
+.polaroid .photo-frame::after{
+  content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,240,200,.18), transparent 55%),
+    linear-gradient(180deg, transparent 60%, rgba(120,90,50,.14));
+  pointer-events:none; mix-blend-mode:multiply;
+}
+.polaroid img{
+  display:block; width:100%; height:100%; object-fit:cover;
+  filter: grayscale(.72) sepia(.22) contrast(.95) brightness(1.04);
+}
+.polaroid.dim img{ filter: grayscale(.9) sepia(.28) contrast(.88) brightness(.85); }
+.polaroid.blurry img{ filter: grayscale(.68) sepia(.2) contrast(.9) brightness(1.02) blur(1.2px); }
+.p-tiny { width:88px; } .p-tiny .photo-frame{ aspect-ratio:1; }
+.p-small { width:112px; } .p-small .photo-frame{ aspect-ratio:1; }
+.p-med { width:132px; } .p-med .photo-frame{ aspect-ratio:1; }
+.p-tall { width:120px; } .p-tall .photo-frame{ aspect-ratio:3/4; }
+.p-wide { width:168px; } .p-wide .photo-frame{ aspect-ratio:4/3; }
+.r1{transform:rotate(-4.2deg);} .r2{transform:rotate(3.1deg);}
+.r3{transform:rotate(-1.8deg);} .r4{transform:rotate(5.2deg);}
+.r5{transform:rotate(-2.4deg);} .r6{transform:rotate(1.2deg);}
+.r7{transform:rotate(-5.6deg);} .r8{transform:rotate(4.5deg);}
+.polaroid::before,
+.polaroid::after{
+  content:""; position:absolute; width:32px; height:11px;
+  background:var(--tape);
+  box-shadow:0 1px 2px rgba(0,0,0,.06); opacity:.92;
+}
+.polaroid::before{ top:-6px; left:-6px; transform:rotate(-38deg); }
+.polaroid::after { bottom:-4px; right:-4px; transform:rotate(-32deg); }
+.polaroid.hang::before{
+  top:-7px; left:50%; transform:translateX(-50%) rotate(-2deg); width:44px;
+}
+.polaroid.hang::after{ display:none; }
+.polaroid.cross-tape::before{
+  top:50%; left:-10px; transform:translateY(-50%) rotate(-70deg);
+  width:52px; height:10px;
+}
+.polaroid.cross-tape::after{
+  top:50%; right:-10px; left:auto;
+  transform:translateY(-50%) rotate(70deg);
+  width:52px; height:10px;
+}
+.polaroid.clip::before,
+.polaroid.clip::after{ display:none; }
+.polaroid.clip .clip-mark{
+  position:absolute; top:-8px; right:10px;
+  width:14px; height:28px;
+  border:1.5px solid #8a8579;
+  border-radius:7px 7px 0 0;
+  border-bottom:none;
+  transform:rotate(6deg); z-index:3;
+}
+.polaroid.clip .clip-mark::after{
+  content:""; position:absolute; top:5px; left:3px;
+  width:6px; height:16px; border:1.5px solid #8a8579;
+  border-radius:5px 5px 0 0; border-bottom:none;
+}
+.polaroid.tape-pink::before,
+.polaroid.tape-pink::after{ background:var(--tape-pink); }
+.polaroid.tape-blue::before,
+.polaroid.tape-blue::after{ background:var(--tape-blue); }
+.polaroid.fold::after{
+  content:""; position:absolute; bottom:0; right:0;
+  width:0; height:0; border-style:solid;
+  border-width:0 0 18px 18px;
+  border-color:transparent transparent var(--paper-edge) transparent;
+  box-shadow:-1px -1px 2px rgba(0,0,0,.08);
+  background:none; transform:none; opacity:1;
+}
+.doodle{
+  position:absolute; left:16px; bottom:120px;
+  width:22px; height:22px; opacity:.55;
+  color:var(--pen); pointer-events:none;
+}
+.doodle svg{ display:block; width:100%; height:100%; }
+.margin-note{
+  position:absolute; left:16px; bottom:44px;
+  font-family:'Kalam', cursive; font-size:13px;
+  color:var(--ink-soft); transform:rotate(-3deg);
+  max-width:40px; line-height:1.1; opacity:.7;
+}
+.end-note{
+  margin:52px 0 0; padding:24px 0 0;
+  border-top:1.5px dashed rgba(0,0,0,.14);
+  text-align:center;
+  opacity:0; transform:translateY(8px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.end-note.on{ opacity:1; transform:none; }
+.end-note p{
+  font-family:'Kalam', cursive; font-size:17px;
+  color:var(--ink-soft); margin-bottom:16px;
+  transform:rotate(-.3deg);
+}
+.second-btn{
+  font-family:'Kalam', cursive; font-weight:700; font-size:18px;
+  color:var(--ink); background:var(--tape-blue);
+  border:none; padding:12px 24px 10px; cursor:pointer;
+  transform:rotate(.8deg);
+  box-shadow:0 2px 4px rgba(0,0,0,.08), 0 6px 14px -6px rgba(0,0,0,.15);
+  transition:transform .25s, box-shadow .25s;
+}
+.second-btn:hover{
+  transform:rotate(-.4deg) translateY(-2px);
+  box-shadow:0 3px 6px rgba(0,0,0,.1), 0 10px 22px -8px rgba(0,0,0,.22);
+}
+.second-btn:focus-visible{ outline:2px solid var(--pen); outline-offset:4px; }
+.surprise{
+  margin-top:44px; padding-top:22px;
+  border-top:1.5px dashed rgba(0,0,0,.14);
+  opacity:0; transform:translateY(8px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.surprise.on{ opacity:1; transform:none; }
+.surprise-title{
+  font-family:'Kalam', cursive; font-size:17px;
+  color:var(--ink-soft); margin-bottom:6px;
+  transform:rotate(-.4deg);
+}
+.surprise-sub{
+  font-family:'Kalam', cursive; font-size:15px;
+  color:var(--ink-soft); opacity:.75; margin-bottom:20px;
+  transform:rotate(-.4deg);
+}
+.surprise-link{
+  position:relative; display:inline-block;
+  font-family:'Kalam', cursive; font-weight:700;
+  font-size:clamp(17px, 4.4vw, 20px);
+  color:var(--ink); text-decoration:none;
+  padding:16px 26px 14px; background:var(--tape-pink);
+  transform:rotate(-1deg);
+  box-shadow:0 2px 4px rgba(0,0,0,.08), 0 8px 18px -8px rgba(0,0,0,.22);
+  transition:transform .25s cubic-bezier(.3,.8,.4,1), box-shadow .25s;
+  -webkit-tap-highlight-color:transparent;
+  max-width:100%; word-break:break-word;
+}
+.surprise-link::before{
+  content:""; position:absolute; top:-5px; left:16px;
+  width:26px; height:7px; background:var(--paper);
+  border-radius:50%; transform:rotate(-4deg); opacity:.9;
+}
+.surprise-link::after{
+  content:"↗"; display:inline-block; margin-left:8px;
+  color:var(--red-pen); font-size:1.05em;
+  transform:rotate(-3deg); transition:transform .3s ease;
+}
+.surprise-link:hover{
+  transform:rotate(.4deg) translateY(-3px);
+  box-shadow:0 4px 8px rgba(0,0,0,.1), 0 16px 30px -10px rgba(0,0,0,.3);
+}
+.surprise-link:hover::after{ transform:rotate(3deg) translate(2px,-2px); }
+.surprise-link:focus-visible{ outline:2.5px solid var(--pen); outline-offset:4px; }
+.surprise-note{
+  margin-top:18px; font-family:'Kalam', cursive;
+  font-size:14px; color:var(--ink-soft);
+  opacity:.75; font-style:italic;
+  transform:rotate(-.4deg);
+}
+.overlay{
+  position:fixed; inset:0; z-index:50;
+  display:grid; place-items:center; padding:20px;
+  background:rgba(30,26,20,.55);
+  opacity:0; visibility:hidden;
+  transition:opacity .35s ease, visibility .35s ease;
+}
+.overlay.show{ opacity:1; visibility:visible; }
+.letter{
+  position:relative;
+  width:min(560px, 100%);
+  max-height:88dvh;
+  overflow-y:auto; overscroll-behavior:contain;
+  padding:44px 40px 40px 68px;
+  background:#fbf6e9;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0, transparent 31px,
+      rgba(120,140,170,0.22) 31px, rgba(120,140,170,0.22) 32px
+    );
+  background-size:100% 32px;
+  box-shadow:0 24px 60px -18px rgba(0,0,0,.4), 0 4px 12px -4px rgba(0,0,0,.2);
+  border-radius:2px;
+  transform:translateY(60px) rotate(-2deg);
+  opacity:0;
+  transition:transform .55s cubic-bezier(.2,.9,.3,1.05), opacity .4s ease;
+  scrollbar-width:thin;
+  scrollbar-color:#d9cfb5 transparent;
+}
+.overlay.show .letter{ transform:translateY(0) rotate(-.4deg); opacity:1; }
+.letter::-webkit-scrollbar{ width:6px; }
+.letter::-webkit-scrollbar-thumb{ background:#d9cfb5; border-radius:99px; }
+.letter::before{
+  content:""; position:absolute; top:0; bottom:0; left:44px;
+  width:1.5px; background:rgba(190,90,90,0.28);
+  pointer-events:none;
+}
+.letter::after{
+  content:""; position:absolute; top:0; left:0;
+  width:0; height:0; border-style:solid;
+  border-width:22px 22px 0 0;
+  border-color:transparent var(--paper-edge) transparent transparent;
+  transform:rotate(180deg); opacity:.6;
+}
+.tape{
+  position:absolute; top:-10px;
+  width:66px; height:22px;
+  background:var(--tape);
+  box-shadow:0 1px 3px rgba(0,0,0,.08); opacity:.9;
+}
+.tape-l{ left:24px; transform:rotate(-6deg); }
+.tape-r{ right:24px; transform:rotate(5deg); }
+.close{
+  position:absolute; top:12px; right:12px;
+  width:32px; height:32px;
+  border:none; background:transparent;
+  color:var(--ink-soft);
+  font-family:'Kalam', cursive; font-size:22px; line-height:1;
+  cursor:pointer; border-radius:50%;
+  transition:background .2s, color .2s, transform .2s;
+  z-index:5;
+}
+.close:hover{ background:rgba(0,0,0,.06); color:var(--red-pen); transform:rotate(90deg); }
+.close:focus-visible{ outline:2px solid var(--pen); outline-offset:2px; }
+.letter-body{
+  font-family:'Kalam', cursive; font-weight:400;
+  font-size:clamp(18px, 4.4vw, 21px);
+  line-height:32px;
+  color:var(--ink);
+  min-height:200px;
+  letter-spacing:.005em;
+}
+.letter-body p{ min-height:32px; }
+.signature{
+  font-family:'Kalam', cursive; font-weight:700;
+  font-size:clamp(18px, 4.4vw, 21px);
+  line-height:32px; color:var(--pen);
+  margin-top:16px; letter-spacing:.01em;
+  opacity:0; transition:opacity .8s ease .3s;
+}
+.signature.on{ opacity:1; }
+.typing-hint{
+  font-family:'Kalam', cursive;
+  font-size:14px;
+  color:var(--ink-soft);
+  text-align:center;
+  margin-top:14px;
+  font-style:italic;
+  letter-spacing:.02em;
+  opacity:0;
+  transition:opacity .5s ease;
+  pointer-events:none;
+}
+.typing-hint.on{ opacity:.55; }
+.pen-caret{
+  display:inline-block; width:2px; height:1em;
+  background:var(--pen); margin-left:1px;
+  vertical-align:-.12em;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink{ 0%,49%{opacity:1;} 50%,100%{opacity:0;} }
+.reply-area{
+  margin-top:24px; padding-top:16px;
+  border-top:1.5px dashed rgba(0,0,0,.14);
+  opacity:0; max-height:0; overflow:hidden;
+  transition:opacity .6s ease, max-height .8s ease;
+}
+.reply-area.on{ opacity:1; max-height:600px; }
+.reply-prompt{
+  font-family:'Kalam', cursive; font-size:17px;
+  color:var(--ink-soft); margin-bottom:10px;
+  transform:rotate(-.5deg);
+}
+.reply-input{
+  width:100%; min-height:64px;
+  font-family:'Kalam', cursive;
+  font-size:19px; line-height:32px;
+  color:var(--pen);
+  background:transparent; border:none; outline:none;
+  resize:none; padding:0; overflow-y:hidden;
+}
+.reply-input::placeholder{ color:rgba(107,127,168,.5); font-style:italic; }
+.reply-input:disabled{ opacity:.75; }
+.reply-actions{
+  display:flex; justify-content:flex-end; align-items:center;
+  gap:10px; margin-top:10px;
+}
+.reply-btn{
+  font-family:'Kalam', cursive; font-size:16px;
+  color:var(--ink-soft);
+  background:none; border:none; cursor:pointer;
+  padding:6px 10px; border-radius:4px;
+  transition:background .2s, color .2s;
+}
+.reply-btn:hover{ background:rgba(0,0,0,.05); color:var(--ink); }
+.reply-btn.primary{ color:var(--pen); }
+.reply-btn.primary:hover{ background:rgba(61,90,153,.1); }
+.reply-btn:disabled{ opacity:.5; cursor:default; }
+.reply-kept{
+  font-family:'Kalam', cursive; font-size:16px;
+  color:var(--ink-soft); margin-top:10px;
+  transform:rotate(-.4deg);
+  opacity:0; transition:opacity .5s ease;
+}
+.reply-kept.on{ opacity:.88; }
+.toast{
+  position:fixed; left:50%; bottom:26px;
+  transform:translateX(-50%) translateY(20px);
+  background:#fdfaf0; border:1px solid rgba(0,0,0,.08);
+  border-radius:6px; padding:10px 16px;
+  font-family:'Kalam', cursive; font-size:16px;
+  color:var(--ink);
+  box-shadow:0 8px 24px -8px rgba(0,0,0,.35);
+  opacity:0; pointer-events:none; z-index:200;
+  transition:opacity .4s ease, transform .4s cubic-bezier(.2,.9,.3,1);
+  white-space:nowrap; max-width:90vw;
+  overflow:hidden; text-overflow:ellipsis;
+}
+.toast.on{ opacity:1; transform:translateX(-50%) translateY(0); }
+.toast .toast-mark{ color:var(--red-pen); margin-right:6px; font-weight:700; }
+
+@media (max-width:600px){
+  .page{ padding:38px 20px 110px 58px; }
+  .page::before{ left:38px; }
+  .page::after{ display:none; }
+  .letter{
+    padding:36px 24px 34px 52px;
+    transform:translateY(50px) rotate(-1.5deg);
+  }
+  .letter::before{ left:32px; }
+  .tape{ width:52px; height:18px; }
+  .tape-l{ left:16px; } .tape-r{ right:16px; }
+  .doodle{ left:8px; bottom:80px; }
+  .margin-note{ left:8px; bottom:30px; font-size:11px; }
+  .photo-grid{ gap:20px 12px; }
+  .p-tiny{ width:74px; } .p-small{ width:96px; }
+  .p-med{ width:110px; } .p-tall{ width:104px; }
+  .p-wide{ width:142px; }
+  .surprise-link{ padding:14px 22px 12px; }
+}
+@media (min-width:1024px){ .page{ padding-top:64px; } }
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+  .subtitle, .signature, .reply-area,
+  .photo-section, .scrapbook-intro, .end-note, .surprise{
+    opacity:1 !important; max-height:none !important;
+    transform:none !important;
+  }
+  .highlight{ width:calc(100% + 8px) !important; }
+}
+</style>
+</head>
+<body>
+
+<main class="page">
+  <header class="page-header">
+    <span class="page-class">one month</span>
+    <span class="page-date">Minggu, 11</s>/10</s>/2026 <span>
+  </header>
+
+  <div class="title-wrap">
+    <span class="highlight" id="highlight" aria-hidden="true"></span>
+    <h1 class="title" id="title"></h1>
+  </div>
+
+  <p class="subtitle" id="subtitle">untuk mengingat karena kita udah satu bulan kenal... yeyyy</p>
+
+  <div class="scrapbook-intro" id="scrapIntro">
+    <p class="scrapbook-text">
+      ini foto2 kamu yang aku simpan sampai sekarang,
+      kurang lebih disaat kita baru kenal hingga hari ini.
+      jadi jangan bosen yaa ngeliat website ini sampe bawah.
+      <span class="mark">nanti ada kejutan.</span>
+      <span class="arrow">↓</span>
+    </p>
+  </div>
+
+  <section class="photo-section" aria-label="Kumpulan foto 1">
+    <div class="photo-grid">
+      <figure class="polaroid p-tall r1 hang"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.53 (1).jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-med r3 tape-blue"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.53.jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-tiny r5 cross-tape"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.54 (1).jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-wide r2"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.54 (2).jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-small r4 fold"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.55 (1).jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+    </div>
+  </section>
+
+  <section class="photo-section" aria-label="Kumpulan foto 2">
+    <div class="photo-grid">
+      <figure class="polaroid p-wide r6 tape-pink"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.55.jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-tall r2 clip"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.56 (1).jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div><span class="clip-mark" aria-hidden="true"></span></figure>
+      <figure class="polaroid p-small r7 tape-blue"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.56 (2).jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-tiny r3"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.56 (3).jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-med r8 hang"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.56.jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+    </div>
+  </section>
+
+  <section class="photo-section" aria-label="Kumpulan foto 3">
+    <div class="photo-grid">
+      <figure class="polaroid p-tall r4 tape-pink"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.57 (1).jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-med r1"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.57 (2).jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-wide r5 tape-blue"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.57.jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-small r7 fold"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.57 (3).jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-med r3 hang"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.58 (1).jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+    </div>
+  </section>
+
+  <section class="photo-section" aria-label="Kumpulan foto 4">
+    <div class="photo-grid">
+      <figure class="polaroid p-small r2 blurry"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.58 (2).jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-tall r6 dim tape-blue"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.51.58.jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-tiny r1"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 06.52.26.jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-med r5 cross-tape dim"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 11.55.59.jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+      <figure class="polaroid p-small r8 tape-pink"><div class="photo-frame"><img src="WhatsApp Image 2026-10-05 at 12.04.42.jpeg" alt="" loading="lazy" onerror="this.style.display='none'"></div></figure>
+    </div>
+  </section>
+
+  <div class="end-note" id="endNote">
+    <p>— kalau kamu masih lihat sampai sini, makasih. —</p>
+    <button class="second-btn" id="openBtn2" type="button" aria-haspopup="dialog">
+      buka suratnya
+    </button>
+  </div>
+
+  <div class="surprise" id="surprise">
+    <p class="surprise-title">eh, satu lagi.</p>
+    <p class="surprise-sub">ini yang tadi aku bilang. klik ya.</p>
+    <a class="surprise-link"
+       href="https://interactivewish.com/?id=l2d-id-UFTsJfjXddmfrdoe3TE2&ref=share"
+       target="_blank" rel="noopener noreferrer">
+      buka kejutan di sini
+    </a>
+    <p class="surprise-note">(bakal kebuka di tab baru)</p>
+  </div>
+
+  <div class="doodle" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <path d="M12 4c-1.5 0-2.5 1-2.5 2.2 0 1.6 2.5 3.8 2.5 3.8s2.5-2.2 2.5-3.8C14.5 5 13.5 4 12 4z"/>
+      <path d="M12 10v7"/>
+      <path d="M9 17h6"/>
+    </svg>
+  </div>
+  <div class="margin-note" aria-hidden="true">(jangan diketawain)</div>
+</main>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="letter-title" aria-hidden="true">
+  <article class="letter" id="letter">
+    <span class="tape tape-l" aria-hidden="true"></span>
+    <span class="tape tape-r" aria-hidden="true"></span>
+    <button class="close" id="closeBtn" type="button" aria-label="tutup">✕</button>
+    <h2 id="letter-title" style="position:absolute;left:-9999px;">Surat</h2>
+
+    <div class="letter-body" id="letterBody" aria-live="polite"></div>
+    <div class="signature" id="signature"></div>
+    <p class="typing-hint" id="typingHint">(klik di mana saja buat skip)</p>
+
+    <div class="reply-area" id="replyArea">
+      <p class="reply-prompt">(kalau kamu mau, tulis balasan di bawah. nanti otomatis kesimpen jadi gambar di hp kamu.)</p>
+      <textarea class="reply-input" id="replyInput" rows="2" placeholder="tulis di sini..."></textarea>
+      <div class="reply-actions">
+        <button class="reply-btn" id="clearBtn" type="button">hapus</button>
+        <button class="reply-btn primary" id="keepBtn" type="button">simpan jadi gambar</button>
+      </div>
+      <p class="reply-kept" id="replyKept"></p>
+    </div>
+  </article>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span class="toast-mark">↓</span><span id="toastMsg">tersimpan</span>
+</div>
+
+<script>
+/* ============================================================
+   ISI SURAT — diganti total
+   ============================================================ */
+const TITLE = "surat yang aku bikin satu bulan khusus buat kamu";
+
+const PARAGRAPHS = [
+  "Untuk Kamu, yang Namanya Selalu Terngiang",
+  "",
+  "Hai kamu.",
+  "",
+  "Mungkin kamu tidak akan pernah tahu, atau mungkin kamu sudah tahu tapi memilih untuk tidak peduli. Tapi izinkan aku, untuk setidaknya sekali ini, menuangkan semua yang berkecamuk di dalam dadaku. Semua ini dimulai dari tanggal yang mungkin bagimu biasa saja, tapi bagiku adalah hari di mana duniaku berputar sedikit lebih cepat: 11 September 2026. Tanggal itu seperti sebuah gerbang yang membuka jalan menuju serangkaian perasaan yang tidak pernah aku minta, tapi tidak pernah bisa aku tolak.",
+  "",
+  "Aku ingat betul pertama kali kita berinteraksi. Sebuah percakapan di ruang digital yang seharusnya menjadi perkenalan ringan, malah berakhir dengan air matamu yang tumpah. Entah karena kata-kataku yang tajam, atau mungkin karena kamu yang terlalu sensitif, atau bisa jadi karena hatiku sudah terlanjur menaruh perhatian lebih padamu sejak awal. Aneh, ya? Baru pertama ngobrol, tapi sudah bisa membuatmu menangis. Sejak saat itu, aku tahu ada sesuatu yang berbeda dari dirimu. Ada daya tarik yang sulit aku jelaskan, sebuah magnet yang membuatku terus ingin kembali, meskipun kadang masih merasa bersalah.",
+  "",
+  "Seiring berjalannya waktu, aku mulai mengenalmu lebih dalam. Kamu, dengan senyum manismu, yang selalu berhasil membuat pagi-pagiku terasa lebih cerah. Kamu yang cantik, bukan hanya dari luar, tapi juga dari caramu bercerita, caramu tertawa. Aku memperhatikan semua hal kecil tentangmu. Aku tahu kamu pecinta kopi, tapi bukan sembarang kopi. Kamu suka Americano, pahit dan jujur, mungkin itu mencerminkan sebagian dirimu. Tapi di sisi lain, kamu juga menyukai Matcha, lembut dan menenangkan. Kontradiksi yang justru membuatmu semakin menarik di mataku.",
+  "",
+  "Aku juga tahu kamu suka sekali membaca novel. Kamu sering tenggelam dalam dunia kata-kata, dan aku iri pada tokoh-tokoh fiksi yang bisa mendapat perhatian penuhmu. Kamu juga suka sastra, lebih spesifiknya puisi. Kamu bisa merangkai kata-kata indah yang membuat hatiku ikut bergetar. Aku berharap, suatu hari, salah satu puisi itu ditujukan untukku, meski aku tahu itu hanyalah angan-angan kosong. Kamu juga suka bermain Mobile Legends. Aku membayangkan kamu serius menatap layar, berteriak kesal saat kalah, atau tersenyum puas saat menang. Aku ingin menjadi alasan di balik senyummu itu, tapi sepertinya aku hanya penonton di luar arena.",
+  "",
+  "Selera kulinermu pun begitu khas. Kamu suka Donat Gula Kopi Kenangan, manis dan sederhana, teman yang pas untuk menemani harimu. Dan yang paling membuatku gemas, kamu sangat menyukai Dimsum Mentai. Aku membayangkan matamu berbinar setiap kali melihat makanan itu. Aku ingin menjadi orang yang bisa menyuapimu, atau setidaknya menemanimu makan sambil mendengarkan ceritamu. Tapi nyatanya, aku hanya bisa memandangmu dari kejauhan, berharap ada satu saja momen di mana kamu menoleh ke arahku dengan tatapan yang sama.",
+  "",
+  "Aku suka kamu. Entah karena alasan apa. Ini yang paling membingungkan. Aku tidak bisa menunjuk satu hal spesifik dan berkata, \"Oh, aku suka kamu karena ini.\" Tidak. Aku suka kamu karena kamu adalah kamu. Karena kehadiranmu saja sudah cukup membuat hariku terasa lengkap. Aku selalu rindu, bahkan saat kamu baru saja pergi dari obrolan kita. Aku selalu kepikiran kamu, bahkan saat aku sedang sibuk mengerjakan hal lain. Kamu selalu ada di sudut pikiranku, seperti lagu yang tidak bisa berhenti diputar.",
+  "",
+  "Tapi aku sadar. Aku sangat sadar. Ini semua bertepuk sebelah tangan. Kamu mungkin hanya menganggapku sebagai teman, atau bahkan mungkin tidak menganggapku sama sekali. Perasaan ini seperti menanam bunga di tanah gersang. Aku menyiraminya setiap hari dengan harapan dan doa, tapi tidak ada tunas yang tumbuh. Aku tahu ini menyakitkan, tapi aku tidak bisa berhenti. Rasanya seperti aku mencintai hujan, tapi aku tidak punya payung. Aku basah kuyup, kedinginan, tapi aku tetap berdiri di bawahnya karena hujan itu indah.",
+  "",
+  "Mungkin ini memang takdirku, untuk mencintaimu dalam diam. Untuk menyukaimu tanpa perlu kamu tahu. Untuk merindukanmu tanpa pernah kamu balas. Aku tidak minta banyak. Aku hanya ingin kamu tahu, bahwa di suatu tempat, ada seseorang yang selalu mendoakanmu, yang selalu ingin kamu bahagia, meskipun kebahagiaanmu itu bukan bersamaku. Aku akan selalu menjadi penonton setia di pinggir lapangan kehidupanmu, bertepuk tangan untuk setiap kesuksesanmu, dan diam-diam menahan perih saat kamu bersandar pada orang lain."
+];
+
+/* Tidak ada tanda tangan terpisah — sudah termasuk di dalam surat */
+const SIGNATURE = "";
+
+/* ============================================================
+   HELPER
+   ============================================================ */
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+/* Dipercepat karena suratnya panjang */
+function charDelay(ch){
+  if(ch === '.')  return 130;
+  if(ch === ',')  return 65;
+  if(ch === '?')  return 130;
+  if(ch === '!')  return 110;
+  if(ch === ':')  return 110;
+  if(ch === ' ')  return 12;
+  return 18 + Math.random() * 14;
+}
+
+/* ============================================================
+   JUDUL + REVEAL
+   ============================================================ */
+const titleEl   = document.getElementById('title');
+const highlight = document.getElementById('highlight');
+const subtitle  = document.getElementById('subtitle');
+const scrapIntro= document.getElementById('scrapIntro');
+const endNote   = document.getElementById('endNote');
+const surprise  = document.getElementById('surprise');
+
+async function writeTitle(){
+  for(let i = 0; i < TITLE.length; i++){
+    titleEl.textContent += TITLE[i];
+    await sleep(charDelay(TITLE[i]) * 0.7);
+  }
+  await sleep(280);
+  highlight.classList.add('on');
+  await sleep(700);
+  subtitle.classList.add('on');
+  await sleep(300);
+  scrapIntro.classList.add('on');
+  revealSectionsOnScroll();
+}
+
+function revealSectionsOnScroll(){
+  const sections = document.querySelectorAll('.photo-section');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('on');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -60px 0px', threshold: 0.08 });
+  sections.forEach(s => io.observe(s));
+
+  const io2 = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('on');
+        io2.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  io2.observe(endNote);
+  io2.observe(surprise);
+}
+
+/* ============================================================
+   SURAT
+   ============================================================ */
+const overlay     = document.getElementById('overlay');
+const openBtn2    = document.getElementById('openBtn2');
+const closeBtn    = document.getElementById('closeBtn');
+const letterBody  = document.getElementById('letterBody');
+const signatureEl = document.getElementById('signature');
+const typingHint  = document.getElementById('typingHint');
+const replyArea   = document.getElementById('replyArea');
+const replyInput  = document.getElementById('replyInput');
+const keepBtn     = document.getElementById('keepBtn');
+const clearBtn    = document.getElementById('clearBtn');
+const replyKept   = document.getElementById('replyKept');
+const letter      = document.getElementById('letter');
+
+let typingToken = 0;
+let isTyping    = false;
+let hasWritten  = false;
+
+async function writeLetter(){
+  const myToken = ++typingToken;
+  isTyping = true;
+  letterBody.innerHTML = '';
+  signatureEl.textContent = '';
+  signatureEl.classList.remove('on');
+  replyArea.classList.remove('on');
+  replyKept.classList.remove('on');
+  replyKept.textContent = '';
+  replyInput.value = '';
+  replyInput.disabled = false;
+  keepBtn.disabled = false;
+  clearBtn.disabled = false;
+  keepBtn.textContent = 'simpan jadi gambar';
+  keepBtn.style.color = '';
+  autoGrow(replyInput);
+
+  typingHint.classList.add('on');
+
+  const lineEls = PARAGRAPHS.map(text => {
+    const p = document.createElement('p');
+    if(text === '') p.classList.add('blank');
+    letterBody.appendChild(p);
+    return p;
+  });
+
+  for(let i = 0; i < PARAGRAPHS.length; i++){
+    if(myToken !== typingToken) return;
+    const p   = lineEls[i];
+    const txt = PARAGRAPHS[i];
+
+    if(txt === ''){
+      await sleep(100);
+      continue;
+    }
+
+    const caret = document.createElement('span');
+    caret.className = 'pen-caret';
+    p.appendChild(caret);
+
+    for(let c = 0; c < txt.length; c++){
+      if(myToken !== typingToken) return;
+      caret.insertAdjacentText('beforebegin', txt[c]);
+      await sleep(charDelay(txt[c]));
+    }
+    caret.remove();
+
+    const last = txt.slice(-1);
+    if(last === '.' || last === '?' || last === '!') await sleep(220);
+    else await sleep(120);
+  }
+
+  if(myToken !== typingToken) return;
+
+  await sleep(200);
+
+  if(SIGNATURE){
+    signatureEl.textContent = SIGNATURE;
+    signatureEl.classList.add('on');
+  }
+
+  typingHint.classList.remove('on');
+  isTyping = false;
+  hasWritten = true;
+
+  await sleep(700);
+  if(myToken !== typingToken) return;
+  replyArea.classList.add('on');
+}
+
+function openLetter(){
+  overlay.classList.add('show');
+  overlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  closeBtn.focus({ preventScroll: true });
+  letter.scrollTop = 0;
+  if(!hasWritten){
+    setTimeout(() => writeLetter(), 500);
+  }
+}
+
+function closeLetter(){
+  overlay.classList.remove('show');
+  overlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  openBtn2.focus({ preventScroll: true });
+}
+
+openBtn2.addEventListener('click', openLetter);
+closeBtn.addEventListener('click', closeLetter);
+
+overlay.addEventListener('click', (e) => {
+  if(e.target === overlay) closeLetter();
+});
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape' && overlay.classList.contains('show')) closeLetter();
+});
+
+letter.addEventListener('click', (e) => {
+  if(!isTyping) return;
+  if(e.target.closest('.close')) return;
+  if(e.target.closest('.reply-area')) return;
+  typingToken++;
+  writeLetterInstant();
+});
+
+async function writeLetterInstant(){
+  const myToken = ++typingToken;
+  isTyping = false;
+  typingHint.classList.remove('on');
+  letterBody.innerHTML = '';
+  PARAGRAPHS.forEach(txt => {
+    const p = document.createElement('p');
+    if(txt === '') p.classList.add('blank');
+    else p.textContent = txt;
+    letterBody.appendChild(p);
+  });
+  if(SIGNATURE){
+    signatureEl.textContent = SIGNATURE;
+    signatureEl.classList.add('on');
+  }
+  hasWritten = true;
+  if(myToken === typingToken){
+    setTimeout(() => replyArea.classList.add('on'), 400);
+  }
+}
+
+/* ============================================================
+   AUTO-GROW TEXTAREA
+   ============================================================ */
+function autoGrow(el){
+  el.style.height = 'auto';
+  el.style.height = (el.scrollHeight) + 'px';
+}
+replyInput.addEventListener('input', () => autoGrow(replyInput));
+
+/* ============================================================
+   FORMAT TANGGAL
+   ============================================================ */
+function tanggalIndo(d){
+  const bulan = ['Januari','Februari','Maret','April','Mei','Juni',
+                 'Juli','Agustus','September','Oktober','November','Desember'];
+  return d.getDate() + ' ' + bulan[d.getMonth()] + ' ' + d.getFullYear();
+}
+function tanggalFile(d){
+  const p = n => String(n).padStart(2,'0');
+  return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate());
+}
+
+/* ============================================================
+   GENERATE GAMBAR DARI SURAT + BALASAN
+   ============================================================ */
+async function generateReplyImage(userReply){
+  try{
+    await Promise.all([
+      document.fonts.load('400 19px Kalam'),
+      document.fonts.load('700 28px Kalam'),
+      document.fonts.load('400 17px Kalam'),
+      document.fonts.load('400 14px Kalam')
+    ]);
+    await document.fonts.ready;
+  }catch(e){}
+
+  const scale = 2;
+  const W = 720;
+  const PAD_X = 60;
+  const PAD_Y = 60;
+  const LH = 32;
+  const contentW = W - PAD_X * 2;
+
+  const FONT_TITLE = '700 28px Kalam, cursive';
+  const FONT_BODY  = '400 19px Kalam, cursive';
+  const FONT_LABEL = '400 17px Kalam, cursive';
+  const FONT_SIGN  = '700 19px Kalam, cursive';
+  const FONT_SMALL = '400 14px Kalam, cursive';
+
+  const measure = document.createElement('canvas').getContext('2d');
+
+  function wrap(text, font, maxW){
+    measure.font = font;
+    const words = text.split(' ');
+    const lines = [];
+    let line = '';
+    for(const w of words){
+      const t = line ? line + ' ' + w : w;
+      if(measure.measureText(t).width > maxW && line){
+        lines.push(line);
+        line = w;
+      } else {
+        line = t;
+      }
+    }
+    if(line) lines.push(line);
+    return lines;
+  }
+
+  const blocks = [];
+  const addText = (lines, font, color, lh, align) =>
+    blocks.push({ type:'text', lines, font, color, lh, align: align||'left' });
+  const addGap   = h => blocks.push({ type:'gap', h });
+  const addRule  = () => blocks.push({ type:'divider' });
+
+  addText([TITLE], FONT_TITLE, '#2a2723', 40);
+  addGap(6);
+  addText(['atau mungkin iya. aku juga belum tau.'], FONT_LABEL, '#6a6358', 24);
+  addGap(22);
+  addRule();
+  addGap(24);
+
+  addText(['suratnya:'], FONT_LABEL, '#6a6358', 24);
+  addGap(10);
+
+  PARAGRAPHS.forEach(p => {
+    if(p === ''){ addGap(17); return; }
+    addText(wrap(p, FONT_BODY, contentW), FONT_BODY, '#2a2723', LH);
+  });
+
+  if(SIGNATURE){
+    addGap(14);
+    addText([SIGNATURE], FONT_SIGN, '#3d5a99', LH);
+  }
+
+  addGap(30);
+  addRule();
+  addGap(24);
+
+  addText(['balasanku:'], FONT_LABEL, '#6a6358', 24);
+  addGap(10);
+
+  userReply.split('\n').forEach(p => {
+    if(p.trim() === ''){ addGap(17); return; }
+    addText(wrap(p, FONT_BODY, contentW), FONT_BODY, '#3d5a99', LH);
+  });
+
+  addGap(34);
+  addRule();
+  addGap(16);
+  addText(['— ' + tanggalIndo(new Date()) + ' —'],
+          FONT_SMALL, '#6a6358', 20, 'center');
+
+  let H = PAD_Y * 2;
+  blocks.forEach(b => {
+    if(b.type === 'gap') H += b.h;
+    else if(b.type === 'divider') H += 1;
+    else if(b.type === 'text') H += b.lines.length * b.lh;
+  });
+  H += 40;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = W * scale;
+  canvas.height = H * scale;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+
+  ctx.fillStyle = '#fbf6e9';
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.fillStyle = 'rgba(180,160,120,0.045)';
+  for(let i = 0; i < 2400; i++){
+    ctx.fillRect(Math.random() * W, Math.random() * H, 1, 1);
+  }
+
+  ctx.strokeStyle = 'rgba(120,140,170,0.18)';
+  ctx.lineWidth = 1;
+  for(let y = PAD_Y + LH; y < H - PAD_Y + 40; y += LH){
+    ctx.beginPath();
+    ctx.moveTo(PAD_X, y);
+    ctx.lineTo(W - PAD_X, y);
+    ctx.stroke();
+  }
+
+  ctx.strokeStyle = 'rgba(190,90,90,0.22)';
+  ctx.beginPath();
+  ctx.moveTo(PAD_X - 14, 0);
+  ctx.lineTo(PAD_X - 14, H);
+  ctx.stroke();
+
+  let cy = PAD_Y;
+  ctx.textBaseline = 'top';
+
+  blocks.forEach(b => {
+    if(b.type === 'gap'){ cy += b.h; return; }
+    if(b.type === 'divider'){
+      ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+      ctx.setLineDash([6, 5]);
+      ctx.beginPath();
+      ctx.moveTo(PAD_X, cy);
+      ctx.lineTo(W - PAD_X, cy);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      cy += 1;
+      return;
+    }
+    if(b.type === 'text'){
+      ctx.font = b.font;
+      ctx.fillStyle = b.color;
+      if(b.align === 'center') ctx.textAlign = 'center';
+      else if(b.align === 'right') ctx.textAlign = 'right';
+      else ctx.textAlign = 'left';
+
+      b.lines.forEach(line => {
+        const x = b.align === 'center' ? W / 2
+                : b.align === 'right'  ? W - PAD_X
+                : PAD_X;
+        ctx.fillText(line, x, cy + 2);
+        cy += b.lh;
+      });
+      ctx.textAlign = 'left';
+    }
+  });
+
+  return canvas;
+}
+
+function canvasToBlob(canvas){
+  return new Promise((resolve, reject) => {
+    try{
+      canvas.toBlob(blob => {
+        if(blob) resolve(blob);
+        else reject(new Error('toBlob gagal'));
+      }, 'image/png');
+    }catch(err){ reject(err); }
+  });
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+const toast    = document.getElementById('toast');
+const toastMsg = document.getElementById('toastMsg');
+let toastTimer = null;
+function showToast(msg){
+  toastMsg.textContent = msg;
+  toast.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('on'), 3000);
+}
+
+/* ============================================================
+   SIMPAN JADI GAMBAR
+   ============================================================ */
+keepBtn.addEventListener('click', async () => {
+  const val = replyInput.value.trim();
+  if(!val){
+    replyInput.focus();
+    showToast('tulis dulu dong');
+    return;
+  }
+
+  const oldLabel = keepBtn.textContent;
+  keepBtn.disabled = true;
+  keepBtn.textContent = 'nyiapin gambar...';
+
+  try{
+    const canvas = await generateReplyImage(val);
+    const blob   = await canvasToBlob(canvas);
+
+    const url = URL.createObjectURL(blob);
+    const now = new Date();
+    const filename = 'balasanku_' + tanggalFile(now) + '.png';
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 2500);
+
+    replyKept.textContent = 'oke, udah kesimpen sebagai gambar: "' + filename + '".';
+    replyKept.classList.add('on');
+
+    replyInput.disabled = true;
+    clearBtn.disabled   = true;
+    keepBtn.textContent = 'tersimpan ✓';
+    keepBtn.style.color = 'var(--red-pen)';
+
+    showToast('gambar tersimpan: ' + filename);
+  }catch(err){
+    console.error(err);
+    keepBtn.disabled = false;
+    keepBtn.textContent = oldLabel;
+    showToast('gagal bikin gambar, coba lagi ya');
+  }
+});
+
+clearBtn.addEventListener('click', () => {
+  replyInput.value = '';
+  autoGrow(replyInput);
+  replyInput.focus();
+});
+
+/* ============================================================
+   MULAI
+   ============================================================ */
+window.addEventListener('load', () => {
+  writeTitle();
+});
+</script>
+
+</body>
+</html>
